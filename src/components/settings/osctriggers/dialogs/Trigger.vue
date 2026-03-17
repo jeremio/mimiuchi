@@ -274,7 +274,7 @@ const new_assign = ref<Assign>({
 const new_trigger = ref({
   // name: '',
   ip: '',
-  port: NaN,
+  port: 9000,
   route: '/avatar/parameters/',
   keywords: [] as Keyword[], // [{enabled: boolean, text: string}?],
   assigns: [] as Assign[], // [{keyword: string, type: string, set: string}?]
