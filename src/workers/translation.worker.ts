@@ -11,7 +11,8 @@ class TranslationPipeline {
 
   static async getInstance(progress_callback?: (progress: any) => void): Promise<XenovaTranslationPipeline> {
     if (this.instance === null) {
-      this.instance = pipeline(this.task, this.model, { progress_callback, device: 'webgpu' }) as Promise<XenovaTranslationPipeline>
+      this.instance = pipeline(this.task, this.model, { progress_callback, device: 'webgpu' })
+        .catch(() => pipeline(this.task, this.model, { progress_callback, device: 'wasm' })) as Promise<XenovaTranslationPipeline>
     }
 
     return this.instance
