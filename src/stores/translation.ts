@@ -37,7 +37,7 @@ export const useTranslationStore = defineStore('translation', () => {
     const logsStore = useLogsStore()
     switch (data.status) {
       case 'progress':
-        if (data.file === 'onnx/encoder_model_quantized.onnx')
+        if (data.progress !== undefined)
           download.value = data.progress
         break
       case 'ready':
