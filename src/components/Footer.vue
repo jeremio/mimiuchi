@@ -233,10 +233,6 @@ onMounted(() => {
       console.log(`Code: ${arg2.code}. Reason: ${arg2.reason}`)
     })
 
-    // Speech
-    window.ipcRenderer.on('transformers-translate-render', (event: any, data: any) => {
-      translationStore.onMessageReceived(data)
-    })
   }
 
   speechStore.initialize_speech(speechStore.stt.language)
@@ -257,9 +253,7 @@ onUnmounted(() => {
     window.ipcRenderer.removeListener('mimiuchi-websocketserver-client-connected')
     window.ipcRenderer.removeListener('mimiuchi-websocketserver-client-disconnected')
 
-    // Speech
     window.ipcRenderer.removeListener('receive-text-event')
-    window.ipcRenderer.removeListener('transformers-translate-render')
   }
 })
 
