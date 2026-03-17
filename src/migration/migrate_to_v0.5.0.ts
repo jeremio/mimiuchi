@@ -31,7 +31,16 @@ export default function migrate_to_v0_5_0() {
   oscStore.$patch(state => {
     if (typeof state.port !== 'number') {
       const parsed = parseInt(state.port);
-      state.port = isNaN(parsed) ? 0 : parsed;
+      state.port = isNaN(parsed) ? 9000 : parsed;
     }
+
+    Object.values(state.osc_profiles).forEach((triggers) => {
+      triggers.forEach((trigger) => {
+        if (typeof trigger.port !== 'number') {
+          const parsed = parseInt(trigger.port as unknown as string);
+          trigger.port = isNaN(parsed) ? 9000 : parsed;
+        }
+      })
+    })
   })
 }
