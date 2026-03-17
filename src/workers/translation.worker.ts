@@ -21,26 +21,32 @@ class TranslationPipeline {
 
 self.onmessage = async (event) => {
   if (event.data.type === 'transformers-translate') {
-    const translator = await TranslationPipeline.getInstance((progress) => {
-      self.postMessage(progress)
-    })
+    try {
+      const translator = await TranslationPipeline.getInstance((progress) => {
+        self.postMessage(progress)
+      })
 
-    const output = await translator(event.data.text, {
-      tgt_lang: event.data.tgt_lang,
-      src_lang: event.data.src_lang,
-      callback_function: (x: any) => {
-        self.postMessage({
-          status: 'update',
-          output: translator.tokenizer.decode(x[0].output_token_ids, { skip_special_tokens: true }),
-          index: event.data.index,
-        })
-      },
-    } as any)
+      const output = await translator(event.data.text, {
+        tgt_lang: event.data.tgt_lang,
+        src_lang: event.data.src_lang,
+        callback_function: (x: any) => {
+          self.postMessage({
+            status: 'update',
+            output: translator.tokenizer.decode(x[0].output_token_ids, { skip_special_tokens: true }),
+            index: event.data.index,
+          })
+        },
+      } as any)
 
-    self.postMessage({
-      status: 'complete',
-      output,
-      index: event.data.index,
-    })
+      self.postMessage({
+        status: 'complete',
+        output,
+        index: event.data.index,
+      })
+    }
+    catch (e) {
+      TranslationPipeline.instance = null
+      self.postMessage({ status: 'error', index: event.data.index })
+    }
   }
 }

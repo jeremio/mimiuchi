@@ -57,6 +57,10 @@ export const useTranslationStore = defineStore('translation', () => {
         on_submit(logsStore.logs[data.index], data.index)
         break
       }
+      case 'error':
+        logsStore.logs[data.index].translate = false
+        logsStore.loading_result = false
+        break
     }
   }
 
