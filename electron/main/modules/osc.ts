@@ -15,11 +15,14 @@ export async function emit_osc(value: any, ip: string = '127.0.0.1', port: numbe
   console.log(`${value[0]} -> ${value[1]}`)
 }
 
-export function empty_queue(queue: any, hide_ui: boolean = true, sfx: boolean = true, seconds: number = 8) {
+export function empty_queue(queue: any, hide_ui: boolean = true, sfx: boolean = true, seconds: number = 8, onDone?: () => void) {
   emit_osc(['/chatbox/input', queue.length > 1 ? `${queue[0]} ...` : queue[0], hide_ui, sfx])
   queue.shift()
   if (queue.length) {
     setTimeout(emit_osc, 400, ['/chatbox/typing', true])
-    setTimeout(empty_queue, seconds * 1000, queue, hide_ui, sfx, seconds)
+    setTimeout(empty_queue, seconds * 1000, queue, hide_ui, sfx, seconds, onDone)
+  }
+  else {
+    onDone?.()
   }
 }

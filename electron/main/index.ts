@@ -214,13 +214,18 @@ ipcMain.on('typing-text-event', (event, args) => {
 
 // event for sending text
 const text_queue: string[] = []
+let queue_running = false
 ipcMain.on('send-text-event', (event, args) => {
   args = JSON.parse(args)
   const new_text = args.transcript.includes(' ') ? args.transcript.match(/.{1,140}(\s|$)/g) : args.transcript.match(/.{1,140}/g)
   if (new_text)
     text_queue.push(...new_text)
-  if (text_queue.length >= 1)
-    empty_queue(text_queue, args.hide_ui, args.sfx)
+  if (text_queue.length >= 1 && !queue_running) {
+    queue_running = true
+    empty_queue(text_queue, args.hide_ui, args.sfx, 8, () => {
+      queue_running = false
+    })
+  }
 })
 
 // event for sending osc messages
