@@ -200,9 +200,12 @@ watch(
 
 onMounted(() => {
   onResize()
-  reloadEvents()
 
   if (is_electron()) {
+    window.ipcRenderer.on('receive-text-event', (event: any, data: any) => {
+      const parsedData = JSON.parse(data)
+      onSubmit(parsedData)
+    })
     // Connections
     window.ipcRenderer.on('mimiuchi-websocketserver-started', () => {
       console.log(`Starting mimiuchi WebSocket server... (Listening on port ${connectionsStore.core_mimiuchi_websocketserver.websocketserver?.port})`)
@@ -256,7 +259,6 @@ onUnmounted(() => {
 })
 
 onUpdated(() => {
-  reloadEvents()
   last_route.value = router.options.history.state.back
 })
 
@@ -356,16 +358,5 @@ function show_snackbar(type: string, desc: string) {
 
 function onResize() {
   windowSize.value = { x: window.innerWidth, y: window.innerHeight }
-}
-
-function reloadEvents() {
-  if (is_electron()) {
-    window.ipcRenderer.removeListener('websocket-connect')
-    window.ipcRenderer.removeListener('receive-text-event')
-    window.ipcRenderer.on('receive-text-event', (event: any, data: any) => {
-      const parsedData = JSON.parse(data)
-      onSubmit(parsedData)
-    })
-  }
 }
 </script>
