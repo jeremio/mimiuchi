@@ -291,12 +291,12 @@ export const useConnectionsStore = defineStore('connections', () => {
     await new Promise<void>((resolve) => {
       const on_close = () => {
         if (ws instanceof WebSocket) ws.removeEventListener('close', on_close)
-        else if (ws instanceof OBSWebSocket) ws.off('ConnectionClosed', on_close)
+        else ws.off('ConnectionClosed', on_close)
         resolve()
       }
 
       if (ws instanceof WebSocket) ws.addEventListener('close', on_close)
-      else if (ws instanceof OBSWebSocket) ws.on('ConnectionClosed', on_close)
+      else ws.on('ConnectionClosed', on_close)
 
       disconnect_ws()
     })
