@@ -15,7 +15,7 @@
         </v-col>
       </v-row>
 
-      <v-row v-if="speechStore.stt.type.value === 'webspeech'">
+      <v-row v-if="speechStore.stt.type === 'webspeech'">
         <v-col :cols="12">
           <v-slider
             v-model="speechStore.stt.sensitivity"

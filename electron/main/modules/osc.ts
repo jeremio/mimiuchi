@@ -7,10 +7,11 @@ import { Bundle, Client } from 'node-osc'
  * ip (string): ip to send bundle to
  * port (number): port to send bundle to
 */
-export function emit_osc(value: any, ip: string = '127.0.0.1', port: number = 9000) {
+export async function emit_osc(value: any, ip: string = '127.0.0.1', port: number = 9000) {
   const bundle = new Bundle(value)
   const client = new Client(ip, port)
-  client.send(bundle)
+  await client.send(bundle)
+  await client.close()
   console.log(`${value[0]} -> ${value[1]}`)
 }
 

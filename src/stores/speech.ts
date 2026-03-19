@@ -27,10 +27,7 @@ interface PinnedLanguages {
 
 export const useSpeechStore = defineStore('speech', () => {
   const stt_init = {
-    type: {
-      title: 'Web Speech API',
-      value: 'webspeech',
-    },
+    type: 'webspeech',
     language: 'en-US',
     confidence: 0.9,
     sensitivity: 0.0,
