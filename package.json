@@ -30,7 +30,7 @@
   "dependencies": {
     "@huggingface/transformers": "^3.8.1",
     "@mdi/font": "^7.4.47",
-    "electron-store": "^10.1.0",
+    "electron-store": "^11.0.2",
     "node-osc": "^11.3.0",
     "pinia": "^3.0.4",
     "roboto-fontface": "^0.10.0",
