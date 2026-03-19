@@ -79,7 +79,7 @@ class WebSpeech {
       if (this.max_sensitivity < this.speechStore.stt.sensitivity)
         return
 
-      const results = event.results.at(-1)
+      const results = event.results[event.results.length - 1]
 
       // result is final
       if (results.isFinal) {
