@@ -296,13 +296,7 @@ export const useSpeechStore = defineStore('speech', () => {
     }
 
     // new line delay
-    if (logsStore.wait_interval)
-      clearTimeout(logsStore.wait_interval)
-    if (text.new_line_delay >= 0) {
-      logsStore.wait_interval = setTimeout((idx) => {
-        logsStore.logs[idx].pause = true
-      }, text.new_line_delay * 1000, i)
-    }
+    logsStore.schedule_pause(i, text.new_line_delay)
 
     // finalized text
     if (log.isFinal) {

@@ -17,6 +17,15 @@ export const useLogsStore = defineStore('logs', () => {
   const loading_result = ref(false)
   const wait_interval = ref<undefined | ReturnType<typeof setTimeout>>(undefined)
 
+  function schedule_pause(idx: number, delay: number) {
+    if (wait_interval.value) clearTimeout(wait_interval.value)
+    if (delay >= 0) {
+      wait_interval.value = setTimeout((i: number) => {
+        logs.value[i].pause = true
+      }, delay * 1000, idx)
+    }
+  }
+
   function exportLogs() {
     const now = new Date()
     let text = ''
@@ -34,7 +43,7 @@ export const useLogsStore = defineStore('logs', () => {
   return {
     logs,
     loading_result,
-    wait_interval,
+    schedule_pause,
     exportLogs,
   }
 })
