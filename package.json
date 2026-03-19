@@ -44,7 +44,7 @@
     "@types/node": "^25.5.0",
     "@types/ws": "^8.18.1",
     "@vitejs/plugin-vue": "^6.0.5",
-    "electron": "^37.2.3",
+    "electron": "^41.0.3",
     "electron-builder": "^26.8.1",
     "eslint": "^10.0.3",
     "obs-websocket-js": "^5.0.8",
