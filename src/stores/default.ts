@@ -6,7 +6,7 @@ import { ref } from 'vue'
 export const useDefaultStore = defineStore('default', () => {
   const typing_limited = ref(false)
   const broadcasting = ref<boolean>(false)
-  const connection_count = ref<number>(0)
+  const connections_count = ref<number>(0)
   const speech = ref(<WebSpeech>{})
   const audio = ref<HTMLAudioElement>(new Audio())
   const snackbar = ref({
@@ -25,7 +25,7 @@ export const useDefaultStore = defineStore('default', () => {
   return {
     typing_limited,
     broadcasting,
-    connections_count: connection_count,
+    connections_count,
     speech,
     audio,
     snackbar,
