@@ -224,7 +224,7 @@ export const useSpeechStore = defineStore('speech', () => {
           response = await fetch.post(tiktok.api, body)
         }
         catch {
-          response = await fetch.post(tiktok.api, body)
+          break
         }
         if (!defaultStore.audio.src || defaultStore.audio.ended) {
           defaultStore.audio.src = `data:audio/mpeg;base64,${response.data}`
@@ -307,9 +307,9 @@ export const useSpeechStore = defineStore('speech', () => {
     if (logsStore.wait_interval)
       clearTimeout(logsStore.wait_interval)
     if (text.new_line_delay >= 0) {
-      logsStore.wait_interval = setTimeout(() => {
-        logsStore.logs.at(-1).pause = true
-      }, text.new_line_delay * 1000)
+      logsStore.wait_interval = setTimeout((idx) => {
+        logsStore.logs[idx].pause = true
+      }, text.new_line_delay * 1000, i)
     }
 
     // finalized text
@@ -324,8 +324,8 @@ export const useSpeechStore = defineStore('speech', () => {
 
       // timestamp
       logsStore.logs[i].time = new Date()
-      // text-to-speech
-      if (tts.value.enabled && tts.value.voice)
+      // text-to-speech — skip on translation callback to avoid playing twice
+      if (tts.value.enabled && tts.value.voice && !log.isTranslationFinal)
         speak(log.transcript)
 
       // fadeout text
