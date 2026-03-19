@@ -130,7 +130,7 @@
 
 <script setup lang="ts">
 import type { ListItem } from '@/stores/speech'
-import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { WebSpeechLangs } from '@/modules/speech'
 import { useSpeechStore } from '@/stores/speech'
@@ -154,7 +154,6 @@ const stt_options = ref([
   },
 ])
 
-const language_choice = ref('')
 const search_lang = ref('')
 
 const active_device = ref('')
@@ -167,20 +166,11 @@ const filtered_lang = computed(() => {
   return languages.filter(lang => `${lang.title} ${lang.value}`.toLocaleLowerCase().includes(search_lang.value.toLocaleLowerCase()))
 })
 
-watch(language_choice, (new_val) => {
-  if (new_val)
-    speechStore.stt.language = new_val
-})
-
 onUnmounted(() => {
   stop_stream()
 })
 
 onMounted(() => {
-  languages.forEach((language) => {
-    if (language.value === speechStore.stt.language)
-      language_choice.value = language.value
-  })
   get_media_devices()
 })
 

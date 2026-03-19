@@ -28,6 +28,7 @@ export const useLogsStore = defineStore('logs', () => {
     a.setAttribute('href', url)
     a.setAttribute('download', filename)
     a.click()
+    window.URL.revokeObjectURL(url)
   }
 
   return {

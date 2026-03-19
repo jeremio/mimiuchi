@@ -343,15 +343,13 @@ export const useConnectionsStore = defineStore('connections', () => {
 
     // Broadcast start
     if (!is_electron()) {
-      const connectionsStore = useConnectionsStore()
-
       // Open core connections
-      if (connectionsStore.core_mimiuchi_websocket.enabled) connect_mimiuchi_websocket()
-      if (connectionsStore.core_obs.enabled) connect_obs()
+      if (core_mimiuchi_websocket.value.enabled) connect_mimiuchi_websocket()
+      if (core_obs.value.enabled) connect_obs()
 
       // Open user-defined connections
-      for (let i = 0; i < connectionsStore.user_websockets.length; i++) {
-        if (connectionsStore.user_websockets[i].enabled) connect_user_websocket(i)
+      for (let i = 0; i < user_websockets.value.length; i++) {
+        if (user_websockets.value[i].enabled) connect_user_websocket(i)
       }
     }
   }

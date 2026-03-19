@@ -181,8 +181,7 @@ export const useSpeechStore = defineStore('speech', () => {
         logsStore.logs.push(log)
       }
 
-      const wsPayload = JSON.stringify(logsStore.logs[input_index])
-      const rendered_payload = `{"type": "text", "data": ${wsPayload}}`
+      const rendered_payload = JSON.stringify({ type: 'text', data: logsStore.logs[input_index] })
 
       if (connectionsStore.open.mimiuchi_websocket)
         connectionsStore.open.mimiuchi_websocket.send(rendered_payload)
@@ -370,18 +369,18 @@ export const useSpeechStore = defineStore('speech', () => {
         }
       }
       else if (!settingsStore.realtime_text) {
-        const wsPayload = JSON.stringify(log)
+        const wsPayload = JSON.stringify({ type: 'text', data: log })
 
         // Send to mimiuchi desktop application
         if (connectionsStore.open.mimiuchi_websocket)
-          connectionsStore.open.mimiuchi_websocket.send(`{"type": "text", "data": ${wsPayload}}`)
+          connectionsStore.open.mimiuchi_websocket.send(wsPayload)
 
         // Send to Open Broadcaster Software (OBS) WebSocket
         await connectionsStore.obs_set_text(log.transcript)
 
         // Send to user WebSockets
         for (const openConnection of connectionsStore.open.user_websockets) {
-          if (openConnection) openConnection.send(`{"type": "text", "data": ${wsPayload}}`)
+          if (openConnection) openConnection.send(wsPayload)
         }
 
         // Post to user webhooks

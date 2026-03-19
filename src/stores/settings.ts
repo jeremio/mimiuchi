@@ -9,11 +9,6 @@ export const useSettingsStore = defineStore('settings', () => {
   const drawer = ref(true)
   const realtime_text = ref(false)
 
-  const stt_Settings = ref({
-    language: 'en-US',
-    confidence: 0.9,
-  })
-
   const languages = ref(global_langs)
 
   const language = ref(languages.value.map(language => language.value).includes(navigator.language.split('-')[0]) ? navigator.language.split('-')[0] : 'en')
@@ -23,7 +18,6 @@ export const useSettingsStore = defineStore('settings', () => {
     welcome,
     drawer,
     realtime_text,
-    stt_Settings,
     languages,
     language,
   }
