@@ -140,6 +140,7 @@ async function createWindow() {
   })
 }
 
+
 app.whenReady().then(() => {
   if (store.get('auto-open-web-app-on-launch')) {
     shell.openExternal('https://mimiuchi.com/')
