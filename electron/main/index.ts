@@ -32,7 +32,7 @@ const store = new Store<Schema>({
 // const image = nativeImage.createFromPath(`${app.getAppPath()}/public/logo-256x256.png`)
 // app.dock?.setIcon(image)
 
-const require = createRequire(import.meta.url)
+const _require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // The built directory structure

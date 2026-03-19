@@ -13,22 +13,21 @@
 import { onMounted, onUnmounted } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import SystemBar from '@/components/appbars/SystemBar.vue'
+import is_electron from '@/helpers/is_electron'
+import migrate_to_v0_5_0 from '@/migration/migrate_to_v0.5.0'
+import { global_langs } from '@/plugins/i18n'
 import { useAppearanceStore } from '@/stores/appearance'
-import { useWordReplaceStore } from '@/stores/word_replace'
-import { useSettingsStore } from '@/stores/settings'
-import { useSpeechStore } from '@/stores/speech'
-import { useTranslationStore } from '@/stores/translation'
 import { useConnectionsStore } from '@/stores/connections'
 import { useOSCStore } from '@/stores/osc'
-import { global_langs } from '@/plugins/i18n'
+import { useSettingsStore } from '@/stores/settings'
 
-import is_electron from '@/helpers/is_electron'
+import { useSpeechStore } from '@/stores/speech'
 
-import SystemBar from '@/components/appbars/SystemBar.vue'
-import migrate_to_v0_5_0 from '@/migration/migrate_to_v0.5.0'
+import { useTranslationStore } from '@/stores/translation'
+import { useWordReplaceStore } from '@/stores/word_replace'
 
 const { locale } = useI18n()
-
 
 const appearanceStore = useAppearanceStore()
 const speechStore = useSpeechStore()
@@ -91,7 +90,7 @@ onMounted(() => {
     connectionsStore.connect_mimiuchi_websocketserver()
 
   locale.value = settingsStore.language
-  settingsStore.$subscribe((language, state) => {
+  settingsStore.$subscribe(() => {
     locale.value = settingsStore.language
   })
 })

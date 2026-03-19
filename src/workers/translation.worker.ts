@@ -44,7 +44,7 @@ self.onmessage = async (event) => {
         index: event.data.index,
       })
     }
-    catch (e) {
+    catch {
       TranslationPipeline.instance = null
       self.postMessage({ status: 'error', index: event.data.index })
     }

@@ -1,6 +1,5 @@
 import { useSpeechStore } from '@/stores/speech'
 
-
 declare interface Lang {
   title: string
   value: string
@@ -23,10 +22,10 @@ class WebSpeech {
 
   speechStore = useSpeechStore()
 
-  onend: Function = () => {}
-  onerror: Function = () => {}
-  onresult: Function = () => {}
-  onstart: Function = () => {}
+  onend: () => void = () => {}
+  onerror: (event: SpeechRecognitionErrorEvent) => void = () => {}
+  onresult: (transcript: string, isFinal: boolean) => void = () => {}
+  onstart: () => void = () => {}
 
   last_error: string | undefined
   try_restart_interval: ReturnType<typeof setTimeout> | undefined
@@ -80,7 +79,7 @@ class WebSpeech {
       if (this.max_sensitivity < this.speechStore.stt.sensitivity)
         return
 
-      const results = event.results[event.results.length - 1]
+      const results = event.results.at(-1)
 
       // result is final
       if (results.isFinal) {

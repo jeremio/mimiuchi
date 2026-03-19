@@ -119,6 +119,7 @@
         <!-- WebSockets -->
         <v-col
           v-for="(connection, i) in connectionsStore.user_websockets"
+          :key="i"
           :cols="12"
         >
           <v-card class="py-2" flat>
@@ -157,6 +158,7 @@
         <!-- Webhooks -->
         <v-col
           v-for="(connection, i) in connectionsStore.user_webhooks"
+          :key="i"
           :cols="12"
         >
           <v-card class="py-2" flat>
@@ -222,13 +224,12 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useDefaultStore } from '@/stores/default'
-import { Connection, useConnectionsStore } from '@/stores/connections'
 import ConnectionDialog from '@/components/settings/connections/dialogs/ConnectionDialog.vue'
 import is_electron from '@/helpers/is_electron'
+import { Connection, useConnectionsStore } from '@/stores/connections'
+import { useDefaultStore } from '@/stores/default'
 
 const { t } = useI18n()
-
 
 const connectionsStore = useConnectionsStore()
 const defaultStore = useDefaultStore()

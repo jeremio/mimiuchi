@@ -45,7 +45,7 @@
         </v-col>
       </v-row>
       <div v-if="replacements.length" class="mt-6">
-        <v-row v-for="(replacement, i) in replacements">
+        <v-row v-for="(replacement, i) in replacements" :key="i">
           <v-col :cols="12" :sm="6" class="pt-1 pb-0">
             <v-text-field
               v-model="replacement.replacing"

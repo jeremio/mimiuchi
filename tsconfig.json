@@ -1,8 +1,8 @@
 {
-  "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },      // Vue.js
+    { "path": "./tsconfig.app.json" }, // Vue.js
     { "path": "./tsconfig.electron.json" }, // Electron
-    { "path": "./tsconfig.node.json" }      // Tools
-  ]
+    { "path": "./tsconfig.node.json" } // Tools
+  ],
+  "files": []
 }

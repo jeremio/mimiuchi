@@ -63,7 +63,7 @@ import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useOSCStore } from '@/stores/osc'
 
-const props = defineProps<{ mode: string, new_name: string }>()
+const props = defineProps<{ mode: string, newName: string }>()
 const emit = defineEmits(['update:modelValue'])
 const { t } = useI18n()
 const model = defineModel<boolean>()
@@ -105,10 +105,10 @@ function confirmEditProfileDialog() {
 
 watch(model, (enabled) => {
   if (enabled) {
-    new_profile_name.value = props.new_name
+    new_profile_name.value = props.newName
 
     if (props.mode === 'edit')
-      profile_being_edited.value = props.new_name
+      profile_being_edited.value = props.newName
   }
 })
 </script>

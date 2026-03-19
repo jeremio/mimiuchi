@@ -48,6 +48,7 @@
             <v-chip
               v-for="(keyword, i) in new_trigger.keywords"
               v-else
+              :key="i"
               v-model="keyword.enabled"
               class="mx-1 mb-2"
               closable
@@ -84,6 +85,7 @@
             <v-list v-if="new_trigger.assigns.length" density="compact">
               <v-list-item
                 v-for="(assign, i) in new_trigger.assigns"
+                :key="i"
                 :value="assign"
                 :title="assign.keyword"
                 :subtitle="displayAssignSubtitle(assign)"
@@ -153,7 +155,8 @@
             v-if="new_assign.behavior === 'pulse'"
             :cols="12"
             :lg="4"
-            :md="4">
+            :md="4"
+          >
             <v-number-input
               v-model="new_assign.pulse_duration"
               control-variant="stacked"
@@ -166,7 +169,8 @@
             v-if="new_assign.behavior === 'pulse'"
             :cols="12"
             :lg="4"
-            :md="4">
+            :md="4"
+          >
             <v-select
               v-if="new_assign.type === 'bool'"
               v-model="new_assign.value_to_set2 as boolean"
@@ -233,13 +237,14 @@
 </template>
 
 <script setup lang="ts">
+import type { Assign } from '@/stores/osc'
 import { ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Assign, useOSCStore } from '@/stores/osc'
+import { useOSCStore } from '@/stores/osc'
 
 const props = defineProps<{
-  mode: string,
-  editingIndex: number,
+  mode: string
+  editingIndex: number
 }>()
 
 const emit = defineEmits(['update:modelValue'])
@@ -340,8 +345,8 @@ function deleteTrigger(i: number) {
 
 function validate_assign_values() {
   if (new_assign.value.type === 'bool') {
-      new_assign.value.value_to_set1 = true
-      new_assign.value.value_to_set2 = false
+    new_assign.value.value_to_set1 = true
+    new_assign.value.value_to_set2 = false
   }
 
   if (['int', 'float'].includes(new_assign.value.type)) {

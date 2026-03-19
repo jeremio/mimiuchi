@@ -147,14 +147,14 @@ import { useRouter } from 'vue-router'
 import is_electron from '@/helpers/is_electron'
 
 import { useAppearanceStore } from '@/stores/appearance'
-import { useWordReplaceStore } from '@/stores/word_replace'
+import { useConnectionsStore } from '@/stores/connections'
+import { useDefaultStore } from '@/stores/default'
+import { useLogsStore } from '@/stores/logs'
+import { useOSCStore } from '@/stores/osc'
 import { useSettingsStore } from '@/stores/settings'
 import { useSpeechStore } from '@/stores/speech'
-import { useConnectionsStore } from '@/stores/connections'
-import { useLogsStore } from '@/stores/logs'
 import { useTranslationStore } from '@/stores/translation'
-import { useOSCStore } from '@/stores/osc'
-import { useDefaultStore } from '@/stores/default'
+import { useWordReplaceStore } from '@/stores/word_replace'
 
 const { t } = useI18n()
 

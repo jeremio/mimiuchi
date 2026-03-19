@@ -79,7 +79,8 @@
 
           <div class="d-flex justify-right">
             <v-icon-btn
-              v-if="!is_electron()" class="mr-4"
+              v-if="!is_electron()" v-ripple
+              class="mr-4"
               :active="defaultStore.speech.listening"
               active-color="success"
               color="error"
@@ -88,7 +89,6 @@
               active-variant="outlined"
               base-variant="outlined"
               icon-size="20"
-              v-ripple
               @click="toggleListen"
             />
             <v-badge
@@ -97,6 +97,7 @@
               class="mr-4"
             >
               <v-icon-btn
+                v-ripple
                 :active="defaultStore.broadcasting"
                 active-color="success"
                 color="error"
@@ -105,12 +106,12 @@
                 active-variant="outlined"
                 base-variant="outlined"
                 icon-size="20"
-                v-ripple
                 @click="connectionsStore.toggle_broadcast()"
               />
             </v-badge>
             <v-divider height="50" class="mr-4" vertical />
             <v-icon-btn
+              v-ripple
               :active="route.name === 'home'"
               active-color=""
               active-icon="mdi-cog"
@@ -118,7 +119,6 @@
               active-variant="text"
               base-variant="text"
               icon-size="20"
-              v-ripple
               @click="router.push({ path: (route.name === 'home') ? last_setting : '/' })"
             />
           </div>
@@ -131,27 +131,26 @@
 <script setup lang="ts">
 // import {ipcRenderer} from "electron"
 
-import { computed, onMounted, onUnmounted, onUpdated, ref, watch } from 'vue'
-import { useDisplay } from 'vuetify'
-import { useRoute, useRouter } from 'vue-router'
+import type { Log } from '@/stores/logs'
 import { storeToRefs } from 'pinia'
+import { computed, onMounted, onUnmounted, onUpdated, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import is_electron from '@/helpers/is_electron'
+import { useRoute, useRouter } from 'vue-router'
+import { useDisplay } from 'vuetify'
 
+import is_electron from '@/helpers/is_electron'
 import { useAppearanceStore } from '@/stores/appearance'
 import { useConnectionsStore } from '@/stores/connections'
 import { useDefaultStore } from '@/stores/default'
-import type { Log } from '@/stores/logs'
 import { useLogsStore } from '@/stores/logs'
-import { useSettingsStore } from '@/stores/settings'
 import { useOSCStore } from '@/stores/osc'
+import { useSettingsStore } from '@/stores/settings'
 import { useSpeechStore } from '@/stores/speech'
 import { useTranslationStore } from '@/stores/translation'
 
 const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
-
 
 const last_route = ref<any>(null)
 const { smAndDown } = useDisplay()
@@ -231,7 +230,6 @@ onMounted(() => {
       console.log(`A WebSocket client disconnected. (${arg2.ip})`)
       console.log(`Code: ${arg2.code}. Reason: ${arg2.reason}`)
     })
-
   }
 
   speechStore.initialize_speech(speechStore.stt.language)

@@ -232,12 +232,12 @@
 </template>
 
 <script setup lang="ts">
-import { useTheme } from 'vuetify'
+import type { Font } from '@/helpers/get_fonts'
 import { storeToRefs } from 'pinia'
 import { onMounted, ref, watch } from 'vue'
 
 import { useI18n } from 'vue-i18n'
-import type { Font } from '@/helpers/get_fonts'
+import { useTheme } from 'vuetify'
 import { get_fonts } from '@/helpers/get_fonts'
 import { useAppearanceStore } from '@/stores/appearance'
 

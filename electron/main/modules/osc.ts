@@ -18,7 +18,7 @@ export function empty_queue(queue: any, hide_ui: boolean = true, sfx: boolean = 
   emit_osc(['/chatbox/input', queue.length > 1 ? `${queue[0]} ...` : queue[0], hide_ui, sfx])
   queue.shift()
   if (queue.length) {
-    setTimeout(() => emit_osc(['/chatbox/typing', true]), 400)
-    setTimeout(() => empty_queue(queue, hide_ui, sfx, seconds), seconds * 1000)
+    setTimeout(emit_osc, 400, ['/chatbox/typing', true])
+    setTimeout(empty_queue, seconds * 1000, queue, hide_ui, sfx, seconds)
   }
 }

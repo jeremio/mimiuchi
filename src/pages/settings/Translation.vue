@@ -97,11 +97,11 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
-import { useTranslationStore } from '@/stores/translation'
-import { useSpeechStore } from '@/stores/speech'
+import { useI18n } from 'vue-i18n'
 import translation_options from '@/constants/translation_options'
+import { useSpeechStore } from '@/stores/speech'
+import { useTranslationStore } from '@/stores/translation'
 
 const { t } = useI18n()
 

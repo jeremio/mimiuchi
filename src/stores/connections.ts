@@ -1,9 +1,9 @@
+import OBSWebSocket from 'obs-websocket-js'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import OBSWebSocket from 'obs-websocket-js'
-import { useDefaultStore } from './default'
-import { i18n } from '@/plugins/i18n'
 import is_electron from '@/helpers/is_electron'
+import { i18n } from '@/plugins/i18n'
+import { useDefaultStore } from './default'
 
 export type ConnectionTypes = 'webhook' | 'websocket' | 'obs' | 'websocketserver'
 
@@ -243,7 +243,7 @@ export const useConnectionsStore = defineStore('connections', () => {
 
       return new_connection
     }
-    catch (error: any) {
+    catch {
       defaultStore.show_snackbar('error', i18n.t('snackbar.connections.websocket_obs.failed'))
     }
   }

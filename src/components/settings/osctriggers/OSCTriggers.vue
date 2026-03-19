@@ -78,6 +78,7 @@
       >
         <v-expansion-panel
           v-for="(trigger, i) in oscStore.osc_profiles[oscStore.current_profile]"
+          :key="i"
           class="mb-4"
         >
           <v-expansion-panel-title ripple class="trigger-panel d-flex align-center">
@@ -143,7 +144,8 @@
                   </v-col>
                   <v-col :cols="12">
                     <v-chip
-                      v-for="(keyword) in trigger.keywords"
+                      v-for="(keyword, ki) in trigger.keywords"
+                      :key="ki"
                       v-model="keyword.enabled"
                       class="mx-1 mb-2"
                       label
@@ -157,7 +159,8 @@
                     <strong>{{ t('settings.osc.triggers.trigger.assign.phrases') }}</strong>
                     <v-list density="compact">
                       <v-list-item
-                        v-for="(assign) in trigger.assigns"
+                        v-for="(assign, ai) in trigger.assigns"
+                        :key="ai"
                         :value="assign"
                         :title="assign.keyword"
                         :subtitle="displayAssignSubtitle(assign)"
@@ -201,7 +204,7 @@
       <Profile
         v-model="profile_dialog"
         :mode="profile_dialog_mode"
-        :new_name="profile_dialog_new_name"
+        :new-name="profile_dialog_new_name"
       />
     </v-row>
 
@@ -259,9 +262,9 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { useOSCStore } from '@/stores/osc'
 import Profile from '@/components/settings/osctriggers/dialogs/Profile.vue'
 import Trigger from '@/components/settings/osctriggers/dialogs/Trigger.vue'
+import { useOSCStore } from '@/stores/osc'
 
 const { t } = useI18n()
 const oscStore = useOSCStore()

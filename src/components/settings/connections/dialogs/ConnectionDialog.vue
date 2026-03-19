@@ -173,12 +173,12 @@
 </template>
 
 <script setup lang="ts">
+import type OBSWebSocket from 'obs-websocket-js'
+import type { ConnectionTypes, TypeDisplayData } from '@/stores/connections'
 import { nextTick, ref, toRaw, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
-import type OBSWebSocket from 'obs-websocket-js'
 import is_electron from '@/helpers/is_electron'
-import type { ConnectionTypes, TypeDisplayData } from '@/stores/connections'
-import { Connection, PropsWebSocket, PropsWebhook, useConnectionsStore } from '@/stores/connections'
+import { Connection, PropsWebhook, PropsWebSocket, useConnectionsStore } from '@/stores/connections'
 import { useDefaultStore } from '@/stores/default'
 
 const props = defineProps<{
@@ -192,7 +192,6 @@ const emit = defineEmits([
   'update:modelValue',
   'update:connectionToConfigure',
 ])
-
 
 const { t } = useI18n()
 const connectionsStore = useConnectionsStore()
@@ -224,7 +223,7 @@ function close_dialog() {
 
 function get_connection_types() {
   return Object.entries(connectionsStore.types)
-    .filter(([type, data]: [string, TypeDisplayData]) => data.selectable) // Hide nonselectable types from the user
+    .filter(([_type, data]: [string, TypeDisplayData]) => data.selectable) // Hide nonselectable types from the user
     .map(([type, data]: [string, TypeDisplayData]) => ({
       type,
       display: data.display,

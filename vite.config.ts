@@ -43,7 +43,7 @@ export default defineConfig(({ command }) => {
               rollupOptions: {
                 external: Object.keys('dependencies' in pkg ? pkg.dependencies : {}),
                 input: {
-                  'index': 'electron/main/index.ts',
+                  index: 'electron/main/index.ts',
                 },
                 output: {
                   entryFileNames: '[name].js',

@@ -67,7 +67,7 @@
             :label="t('settings.stt.pinned_languages')"
           >
             <v-card
-              v-for="language in speechStore.pinned_languages" class="language-card pa-2 mb-2"
+              v-for="(language, lk) in speechStore.pinned_languages" :key="lk" class="language-card pa-2 mb-2"
               :color="language.value === speechStore.stt.language ? 'primary' : 'default'"
               @click="speechStore.stt.language = language.value"
             >
@@ -97,7 +97,7 @@
               hide-details
             />
             <v-card
-              v-for="(language) in filtered_lang" class="language-card pa-2 mb-2"
+              v-for="(language, li) in filtered_lang" :key="li" class="language-card pa-2 mb-2"
               :color="language.value === speechStore.stt.language ? 'primary' : 'default'"
               @click="speechStore.stt.language = language.value"
             >
@@ -129,13 +129,13 @@
 </template>
 
 <script setup lang="ts">
+import type { ListItem } from '@/stores/speech'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
-import { ListItem, useSpeechStore} from '@/stores/speech'
-import { WebSpeechLangs } from '@/modules/speech'
 import { useI18n } from 'vue-i18n'
-const { t } = useI18n()
+import { WebSpeechLangs } from '@/modules/speech'
+import { useSpeechStore } from '@/stores/speech'
 
-import is_electron from '@/helpers/is_electron'
+const { t } = useI18n()
 
 declare interface MediaDevice {
   kind?: string
@@ -158,8 +158,8 @@ const language_choice = ref('')
 const search_lang = ref('')
 
 const active_device = ref('')
-const media_devices = ref(<any>[])
-const stream = ref(<any>null)
+const media_devices = ref<any[]>([])
+const stream = ref<any>(null)
 const sensitivity = ref(0)
 const loading_media = ref(false)
 
@@ -183,10 +183,6 @@ onMounted(() => {
   })
   get_media_devices()
 })
-
-function openURL(url: string) {
-  window.open(url, '_blank')
-}
 
 async function test_sensitivity() {
   if (stream.value) {

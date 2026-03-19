@@ -1,20 +1,20 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { useSettingsStore } from './settings'
-import { useDefaultStore } from '@/stores/default'
-import { useLogsStore } from '@/stores/logs'
-import { useAppearanceStore } from '@/stores/appearance'
-import { useOSCStore } from '@/stores/osc'
-import { useTranslationStore } from '@/stores/translation'
-import { useConnectionsStore } from '@/stores/connections'
-import { useWordReplaceStore } from '@/stores/word_replace'
+import tiktok from '@/constants/voices/tiktok'
+import yukumo from '@/constants/voices/yukumo'
 import fetch from '@/helpers/fetch'
 import is_electron from '@/helpers/is_electron'
-import { i18n } from '@/plugins/i18n'
-import { WebSpeech } from '@/modules/speech'
-import yukumo from '@/constants/voices/yukumo'
-import tiktok from '@/constants/voices/tiktok'
 import webhook from '@/helpers/webhook'
+import { WebSpeech } from '@/modules/speech'
+import { i18n } from '@/plugins/i18n'
+import { useAppearanceStore } from '@/stores/appearance'
+import { useConnectionsStore } from '@/stores/connections'
+import { useDefaultStore } from '@/stores/default'
+import { useLogsStore } from '@/stores/logs'
+import { useOSCStore } from '@/stores/osc'
+import { useTranslationStore } from '@/stores/translation'
+import { useWordReplaceStore } from '@/stores/word_replace'
+import { useSettingsStore } from './settings'
 
 export interface ListItem {
   title: string
@@ -24,7 +24,6 @@ export interface ListItem {
 interface PinnedLanguages {
   [key: string]: ListItem
 }
-
 
 export const useSpeechStore = defineStore('speech', () => {
   const stt_init = {
@@ -217,7 +216,7 @@ export const useSpeechStore = defineStore('speech', () => {
     let response: any
     const defaultStore = useDefaultStore()
     switch (tts.value.type) {
-      case 'tiktok':
+      case 'tiktok': {
         const body = {
           text: input,
           voice: tiktok.voices.find(voice => voice.name === tts.value.voice)?.lang,
@@ -225,8 +224,7 @@ export const useSpeechStore = defineStore('speech', () => {
         try {
           response = await fetch.post(tiktok.api, body)
         }
-        catch (e) {
-          console.error(e)
+        catch {
           response = await fetch.post(tiktok.api, body)
         }
         if (!defaultStore.audio.src || defaultStore.audio.ended) {
@@ -241,11 +239,13 @@ export const useSpeechStore = defineStore('speech', () => {
           }
         }
         break
+      }
 
-      case 'webspeech':
+      case 'webspeech': {
         const { speech } = useDefaultStore()
         speech.speak(input)
         break
+      }
 
       case 'yukumo':
         if (!defaultStore.audio.src || defaultStore.audio.ended) {
@@ -309,7 +309,7 @@ export const useSpeechStore = defineStore('speech', () => {
       clearTimeout(logsStore.wait_interval)
     if (text.new_line_delay >= 0) {
       logsStore.wait_interval = setTimeout(() => {
-        logsStore.logs[logsStore.logs.length - 1].pause = true
+        logsStore.logs.at(-1).pause = true
       }, text.new_line_delay * 1000)
     }
 
@@ -402,7 +402,7 @@ export const useSpeechStore = defineStore('speech', () => {
       case 'tiktok':
         voices = tiktok.voices
         break
-      case 'webspeech':
+      case 'webspeech': {
         const synth = window.speechSynthesis
         voices = synth.getVoices().map((lang: SpeechSynthesisVoice) => ({
           lang: lang.lang,
@@ -410,6 +410,7 @@ export const useSpeechStore = defineStore('speech', () => {
           local_service: lang.localService,
         } as Voice))
         break
+      }
       case 'yukumo':
         voices = yukumo.voices
         break
@@ -445,7 +446,7 @@ export const useSpeechStore = defineStore('speech', () => {
   function is_pinned_language(selected_language: ListItem) {
     const pins = pinned_languages
 
-    return pins.value.hasOwnProperty(selected_language.title)
+    return Object.hasOwn(pins.value, selected_language.title)
   }
 
   function post_to_user_webhooks(text: any, is_final: boolean) {

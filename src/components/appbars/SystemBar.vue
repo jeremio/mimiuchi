@@ -1,12 +1,11 @@
 <template>
   <v-system-bar height="35" class="systembar pr-0" color="background" window>
-
-    <div v-if="platform.includes('mac')" :style="{ 'min-width': '75px' }"></div>
+    <div v-if="platform.includes('mac')" :style="{ 'min-width': '75px' }" />
 
     <v-icon class="me-2" icon="mdi-weather-night" />
 
     <span class="font-weight-medium">{{ APP_NAME }}</span>
-    
+
     <v-chip class="ml-2" size="x-small" label>
       {{ t('general.beta') }}
     </v-chip>
@@ -19,7 +18,7 @@
       </v-btn>
 
       <v-btn variant="text" class="systembar-button ms-1 pt-1" height="35" size="x-small" @click="toggle_maximize">
-        <v-icon :icon=" maximized ? 'mdi-checkbox-multiple-blank-outline' : 'mdi-checkbox-blank-outline'"  />
+        <v-icon :icon=" maximized ? 'mdi-checkbox-multiple-blank-outline' : 'mdi-checkbox-blank-outline'" />
       </v-btn>
 
       <v-hover>
@@ -42,13 +41,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import type { IpcRendererEvent } from 'electron'
+import { onMounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import is_electron from '@/helpers/is_electron'
-import { IpcRendererEvent } from 'electron'
 
 const { t } = useI18n()
-
 
 const APP_NAME = __APP_NAME__
 const maximized = ref(false)
@@ -68,10 +66,11 @@ function minimize() {
 }
 
 onMounted(() => {
-  if (is_electron())
+  if (is_electron()) {
     window.ipcRenderer.on('maximized_state', (_event: IpcRendererEvent, arg: boolean) => {
       maximized.value = arg
     })
+  }
 })
 </script>
 

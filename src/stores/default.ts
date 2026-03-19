@@ -1,7 +1,7 @@
-import { defineStore } from 'pinia'
-
-import { ref } from 'vue'
 import type { WebSpeech } from '@/modules/speech'
+
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
 export const useDefaultStore = defineStore('default', () => {
   const typing_limited = ref(false)

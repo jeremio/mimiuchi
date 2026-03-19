@@ -120,16 +120,15 @@
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 
-import { useDisplay } from 'vuetify'
-import { useRoute, useRouter } from 'vue-router'
 import { useI18n } from 'vue-i18n'
+import { useRoute, useRouter } from 'vue-router'
+import { useDisplay } from 'vuetify'
 import is_electron from '@/helpers/is_electron'
-import { useSettingsStore } from '@/stores/settings'
-
 import OSCUnavailable from '@/pages/tooltips/OSCUnavailable.vue'
+
 import STTUnavailable from '@/pages/tooltips/STTUnavailable.vue'
 import TranslationUnavailable from '@/pages/tooltips/TranslationUnavailable.vue'
-
+import { useSettingsStore } from '@/stores/settings'
 
 const settingsStore = useSettingsStore()
 const { smAndDown } = useDisplay()
