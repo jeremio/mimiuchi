@@ -1,6 +1,5 @@
 import { useSpeechStore } from '@/stores/speech'
 
-declare const window: any
 
 declare interface Lang {
   title: string

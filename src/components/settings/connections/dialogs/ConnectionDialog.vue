@@ -193,7 +193,6 @@ const emit = defineEmits([
   'update:connectionToConfigure',
 ])
 
-declare const window: any
 
 const { t } = useI18n()
 const connectionsStore = useConnectionsStore()

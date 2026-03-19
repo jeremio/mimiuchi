@@ -130,7 +130,6 @@ import OSCUnavailable from '@/pages/tooltips/OSCUnavailable.vue'
 import STTUnavailable from '@/pages/tooltips/STTUnavailable.vue'
 import TranslationUnavailable from '@/pages/tooltips/TranslationUnavailable.vue'
 
-declare const window: any
 
 const settingsStore = useSettingsStore()
 const { smAndDown } = useDisplay()

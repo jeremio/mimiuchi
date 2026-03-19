@@ -29,7 +29,6 @@ import migrate_to_v0_5_0 from '@/migration/migrate_to_v0.5.0'
 
 const { locale } = useI18n()
 
-declare const window: any
 
 const appearanceStore = useAppearanceStore()
 const speechStore = useSpeechStore()

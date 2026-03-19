@@ -229,7 +229,6 @@ import is_electron from '@/helpers/is_electron'
 
 const { t } = useI18n()
 
-declare const window: any
 
 const connectionsStore = useConnectionsStore()
 const defaultStore = useDefaultStore()

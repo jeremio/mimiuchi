@@ -38,7 +38,6 @@ import { useAppearanceStore } from '@/stores/appearance'
 import { useLogsStore } from '@/stores/logs'
 import { useTranslationStore } from '@/stores/translation'
 
-declare const window: any
 
 const { height } = useDisplay()
 const theme = useTheme()

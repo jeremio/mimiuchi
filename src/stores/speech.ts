@@ -25,7 +25,6 @@ interface PinnedLanguages {
   [key: string]: ListItem
 }
 
-declare const window: any
 
 export const useSpeechStore = defineStore('speech', () => {
   const stt_init = {

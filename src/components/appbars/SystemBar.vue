@@ -49,7 +49,6 @@ import { IpcRendererEvent } from 'electron'
 
 const { t } = useI18n()
 
-declare const window: any
 
 const APP_NAME = __APP_NAME__
 const maximized = ref(false)
