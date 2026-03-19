@@ -282,11 +282,6 @@ export const useSpeechStore = defineStore('speech', () => {
       return
     }
 
-    // scroll to bottom
-    const loglist = document.getElementById('loglist')
-    if (loglist)
-      loglist.scrollTop = loglist.scrollHeight
-
     if (is_electron() && oscStore.osc_text && oscStore.stt_typing && defaultStore.broadcasting)
       typing_event(true)
 

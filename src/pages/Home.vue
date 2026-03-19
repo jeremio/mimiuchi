@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, nextTick, onMounted, ref, watch } from 'vue'
 
 // import {ipcRenderer} from "electron"
 import { useDisplay, useTheme } from 'vuetify'
@@ -70,6 +70,14 @@ const outer_size = computed(() => {
   if (is_electron()) value += 35
   if (appearanceStore.footer_size) value += 145
   return `${value}px`
+})
+
+watch(logsStore.logs, () => {
+  nextTick(() => {
+    const loglist = document.getElementById('log-list')
+    if (loglist)
+      loglist.scrollTop = loglist.scrollHeight
+  })
 })
 
 onMounted(() => {
