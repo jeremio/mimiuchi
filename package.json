@@ -37,14 +37,12 @@
     "vue-i18n": "^11.1.10",
     "vue-router": "^4.5.1",
     "vuetify": "^3.9.2",
-    "webfontloader": "^1.6.28",
     "ws": "^8.18.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.17.0",
     "@types/node": "^24.1.0",
     "@types/node-osc": "^9.1.0",
-    "@types/webfontloader": "^1.6.38",
     "@types/ws": "^8.18.1",
     "@vitejs/plugin-vue": "^6.0.0",
     "electron": "^37.2.3",
