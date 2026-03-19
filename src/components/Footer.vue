@@ -248,6 +248,7 @@ onUnmounted(() => {
   if (is_electron()) {
     // Connections
     window.ipcRenderer.removeListener('mimiuchi-websocketserver-started')
+    window.ipcRenderer.removeListener('mimiuchi-websocketserver-close')
     window.ipcRenderer.removeListener('mimiuchi-websocketserver-closed')
     window.ipcRenderer.removeListener('mimiuchi-websocketserver-error')
     window.ipcRenderer.removeListener('mimiuchi-websocketserver-client-connected')
