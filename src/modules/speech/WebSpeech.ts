@@ -8,8 +8,6 @@ declare interface Lang {
 
 class WebSpeech {
   SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
-  SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList
-  SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeechRecognitionEvent
   synth = window.speechSynthesis
   recognition: any
 
@@ -79,6 +77,7 @@ class WebSpeech {
       if (this.max_sensitivity < this.speechStore.stt.sensitivity)
         return
 
+      // eslint-disable-next-line e18e/prefer-array-at -- SpeechRecognitionResultList is array-like but does not inherit Array.prototype
       const results = event.results[event.results.length - 1]
 
       // result is final

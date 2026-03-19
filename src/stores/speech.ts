@@ -411,33 +411,26 @@ export const useSpeechStore = defineStore('speech', () => {
   }
 
   function pin_language(selected_language: ListItem) {
-    const pins = pinned_languages
-
     // Pin
-    pins.value[selected_language.title] = selected_language
+    pinned_languages.value[selected_language.title] = selected_language
 
     // Alphabetically sort
-    const sortedKeys = Object.keys(pins.value).sort()
+    const sortedKeys = Object.keys(pinned_languages.value).sort()
     const sortedPins = {} as PinnedLanguages
 
     sortedKeys.forEach((key) => {
-      sortedPins[key] = pins.value[key]
+      sortedPins[key] = pinned_languages.value[key]
     })
 
     pinned_languages.value = sortedPins
   }
 
   function unpin_language(selected_language: ListItem) {
-    const pins = pinned_languages
-
-    // Unpin
-    delete pins.value[selected_language.title]
+    delete pinned_languages.value[selected_language.title]
   }
 
   function is_pinned_language(selected_language: ListItem) {
-    const pins = pinned_languages
-
-    return Object.hasOwn(pins.value, selected_language.title)
+    return Object.hasOwn(pinned_languages.value, selected_language.title)
   }
 
   function post_to_user_webhooks(text: any, is_final: boolean) {

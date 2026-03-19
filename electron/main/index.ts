@@ -1,4 +1,3 @@
-import { createRequire } from 'node:module'
 import * as os from 'node:os'
 import * as path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -32,7 +31,6 @@ const store = new Store<Schema>({
 // const image = nativeImage.createFromPath(`${app.getAppPath()}/public/logo-256x256.png`)
 // app.dock?.setIcon(image)
 
-const _require = createRequire(import.meta.url)
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 // The built directory structure

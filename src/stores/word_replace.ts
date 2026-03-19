@@ -26,15 +26,10 @@ export const useWordReplaceStore = defineStore('wordreplace', () => {
     if (!enabled.value || !Object.keys(word_replacements.value).length)
       return input
 
-    let joined_keys: string[] = []
-
     // Interpret depending on the "Match case" option
-    if (!match_case.value) {
-      joined_keys = Object.keys(word_replacements_lowercase.value)
-    }
-    else {
-      joined_keys = Object.keys(word_replacements.value)
-    }
+    const joined_keys = !match_case.value
+      ? Object.keys(word_replacements_lowercase.value)
+      : Object.keys(word_replacements.value)
 
     const regex_keys = joined_keys.map(key => escapeRegExp(key)).join('|')
 

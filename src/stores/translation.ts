@@ -71,7 +71,6 @@ export const useTranslationStore = defineStore('translation', () => {
     target,
     download,
     show_original,
-    onMessageReceived,
     translate,
   }
 })
